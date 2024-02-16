@@ -18,32 +18,33 @@ def print_transition_details(transition_dict):
         for action, properties in actions_dict.items():
             print(action, ":", properties)
 
+def createMDP():
 
-# Define MDP
-states = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9']
+    # Define MDP 
+    states = ['s1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9']
 
-actions = ['a', 'b', 'c']
+    actions = ['a', 'b', 'c']
 
-transition_keys = ['foll_state', 'reward', 'probability']
+    transition_keys = ['foll_state', 'reward', 'probability']
 
-# Generate random transitions
-transitions = {}
+    # Generate random transitions
+    transitions = {}
 
-for state in states:
-    transition = create_transitions(state, actions, transition_keys)
-    total_prob = 0
-    # Generate a random following state and a random reward
-    for action in actions:
-        transition[state][action]['foll_state'] = random.choice(states)
-        transition[state][action]['reward'] = random.randint(-10, 10)
-    for action in actions[:-1]:  # Exclude the last action, as it will be adjusted later
-        # Generate a random probability with two decimal places
-        prob = round(random.uniform(0, 1 - total_prob), 2)
-        total_prob += prob
-        transition[state][action]['probability'] = prob
-    # Adjust the probability of the last action to ensure the sum is exactly 1.0
-    prob_c = round(1 - total_prob, 2)
-    transition[state]['c']['probability'] = prob_c
-    print_transition_details(transition)
-    
+    for state in states:
+        transition = create_transitions(state, actions, transition_keys)
+        total_prob = 0
+        # Generate a random following state and a random reward
+        for action in actions:
+            transition[state][action]['foll_state'] = random.choice(states)
+            transition[state][action]['reward'] = random.randint(-10, 10)
+        for action in actions[:-1]:  # Exclude the last action, as it will be adjusted later
+            # Generate a random probability with two decimal places
+            prob = round(random.uniform(0, 1 - total_prob), 2)
+            total_prob += prob
+            transition[state][action]['probability'] = prob
+        # Adjust the probability of the last action to ensure the sum is exactly 1.0
+        prob_c = round(1 - total_prob, 2)
+        transition[state]['c']['probability'] = prob_c
+        transitions.update(transition)
+    return transitions
 

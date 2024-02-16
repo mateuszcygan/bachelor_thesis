@@ -1,7 +1,0 @@
-MDP:
-- from each state we can fire each action
-=> for each action we should define certain following state and probability for it
-
-{ 's1' : { 'action': 'a' : { 'foll_state' : 's1', 'reward' : 4, 'probability' : 0.75 }},
-	  { 'action': 'b' : { 'foll_state' : 's3', 'reward' : 2, 'probability' : 0.2 }},
-	  { 'action': 'c' : { 'foll_state' : 's7', 'reward' : 9, 'probability' : 0.05}}}
