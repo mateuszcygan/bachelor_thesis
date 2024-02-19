@@ -1,8 +1,7 @@
 import mdp
 import print_mdp
-    
-test_R, test_P = mdp.createMDP()
-# print_rewards_details(test_R)
 
-print_mdp.print_rewards_details(test_R)
-print_mdp.print_prob_details(test_P)
+#Rewards
+R = {'s0': {'a0': 3, 'a1': -3}, 's1': {'a0': 5, 'a1': 4}, 's2': {'a0': 2, 'a1': 2}} 
+
+print(R['s0']['a0'])

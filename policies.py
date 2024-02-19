@@ -1,8 +1,8 @@
 import mdp
-import print_mdp
+import print_mdp as p
 import random
 
-policy_mdp = mdp.createMDP() # For later: implement function that gives states and actions from these two dictionaries back
+policy_mdp = mdp.createMDP()
 
 
 # Random policy
@@ -11,35 +11,52 @@ policy_mdp = mdp.createMDP() # For later: implement function that gives states a
 # 2. Based on probabilities, transition to another state will be executed
 
 def random_policy(mdp_object, tran_num):
+    """
+    Implement a random policy for a Markov Decision Process (MDP).
+
+    Args:
+    - mdp_object: An object representing the MDP.
+    - tran_num: The number of transitions to simulate.
+
+    Returns:
+    - rewards_sum: The sum of rewards collected during transitions.
+    """
 
     # Sets of which MDP is composed
     A = mdp_object.get_actions()
+    S = mdp_object.get_states()
+    R = mdp_object.get_rewards()
+    P = mdp_object.get_probabilities()
+
+    print(A, '\n')
+    print(S, '\n')
+    # print(R, '\n')
+    # print(P, '\n')
+    p.print_rewards_details(R)
+    p.print_prob_details(P)
 
     
     current_state = 's0' # Start from s0
-    for number in range(0, tran_num):
-        next_action = random.choice(A)
-        print(next_action)
+    rewards_sum = 0
+    for _ in range(0, tran_num): # Use _ as a placeholder for the loop variable
+        print("Current state:", current_state)
 
+        current_action = random.choice(A) # Randomly choose action
+        print("Randomly choosed action: ", current_action)
 
+        print("Reward of taking current action:", R[current_state][current_action])
+        rewards_sum += R[current_state][current_action] # Sum the collected rewards
+        print("Collected rewards so far:", rewards_sum)
 
+        prob_current_action = [P[current_state][current_action][state] for state in P]# Get probabilities for going over to another state from the current action
+        print("Probabilities of going to another state after", current_action, ":", prob_current_action)
 
-# Define random_policy
+        # Go over to another state based on probability of certain action
+        next_state = random.choices(S, weights = prob_current_action)[0] # [0] - return type is an array
+        print("Based on probability chosen next state:", next_state, '\n')
 
-# helpful function - random.choices
-# mylist = ["apple", "banana", "cherry"]
-# print(random.choices(mylist, weights = [10, 1, 1], k = 14))
-# weights - weigh the possibility of each result with the weights parameter
+        current_state = next_state
 
-# def random_policy(state):
-#     actions = list(mdp1[state].keys())  # Get available actions for the given state
-#     print(actions)
-#     probabilities = [action_info['probability'] for action_info in mdp1[state].values()]  # Get probabilities
-#     print(probabilities)
-#     selected_action_index = random.choices(range(len(actions)), weights=probabilities)[0]  # Select action based on probabilities
-#     return actions[selected_action_index]  # Return selected action
+    return rewards_sum
 
-# Example usage
-# current_state = 's1'
-# selected_action = random_policy(current_state)
-# print("Selected Action:", selected_action)
+random_policy(policy_mdp, 5)

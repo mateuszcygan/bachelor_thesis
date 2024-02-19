@@ -22,10 +22,10 @@ class MDP:
         return self.probabilities
 
 def createMDP():
-    S = ['s0', 's1', 's2'] #state space
-    A = ['a0', 'a1'] #action space
-    # S = mdp_sets.generate_states()
-    # A = mdp_sets.generate_actions()
+    # S = ['s0', 's1', 's2'] #state space
+    # A = ['a0', 'a1'] #action space
+    S = mdp_sets.generate_states()
+    A = mdp_sets.generate_actions()
 
     R = mdp_sets.generate_rewards(S, A)
     P = mdp_sets.generate_prob(S, A)
