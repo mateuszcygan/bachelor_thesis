@@ -8,7 +8,7 @@ policy_mdp = mdp.createMDP()
 # Random policy
 # Based on selecting randomly action that should be executed
 # 1. Select randomly action
-# 2. Based on probabilities, transition to another state will be executed
+# 2. Based on probabilities, going over to another state will be executed
 
 def random_policy(mdp_object, tran_num):
     """
@@ -28,6 +28,7 @@ def random_policy(mdp_object, tran_num):
     R = mdp_object.get_rewards()
     P = mdp_object.get_probabilities()
 
+    # Prints of MDP components (Delete)
     print(A, '\n')
     print(S, '\n')
     # print(R, '\n')
@@ -41,7 +42,7 @@ def random_policy(mdp_object, tran_num):
     for _ in range(0, tran_num): # Use _ as a placeholder for the loop variable
         print("Current state:", current_state)
 
-        current_action = random.choice(A) # Randomly choose action
+        current_action = random.choice(A) # Randomly choose action from A
         print("Randomly choosed action: ", current_action)
 
         print("Reward of taking current action:", R[current_state][current_action])
@@ -60,3 +61,22 @@ def random_policy(mdp_object, tran_num):
     return rewards_sum
 
 random_policy(policy_mdp, 5)
+
+# Expected value policy
+# Multiply rewards with probabilities
+# Choose the action with bigger expected value
+
+def expected_value_policy(mdp_object, tran_num):
+    rewards_sum = 0
+    start_state = 's0'
+
+    A = mdp_object.get_actions()
+    R = mdp_object.get_rewards()
+    P = mdp_object.get_probabilities()
+
+    for _ in range(0, tran_num):
+        for action in A:
+            return
+    return
+
+# Compare random with expected value policy
