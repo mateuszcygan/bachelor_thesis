@@ -2,11 +2,24 @@ import random
 import pickle
 import mdp_sets
 
-def print_transition_details(transition_dict):
-    for state, actions_dict in transition_dict.items():
-        print(state)
-        for action, properties in actions_dict.items():
-            print(action, ":", properties)
+class MDP:
+    def __init__(self, states, actions, rewards, probabilities):
+        self.states = states
+        self.actions = actions
+        self.rewards = rewards
+        self.probabilities = probabilities
+    
+    def get_states(self):
+        return self.states
+
+    def get_actions(self):
+        return self.actions
+    
+    def get_rewards(self):
+        return self.rewards
+    
+    def get_probabilities(self):
+        return self.probabilities
 
 def createMDP():
     S = ['s0', 's1', 's2'] #state space
@@ -20,7 +33,7 @@ def createMDP():
     # print(R)
     # print(P)
 
-    return (S, A, R, P) 
+    return MDP(S, A, R, P) 
 
     # Doesn't work properly
     # with open("generated_R.txt", "w") as file:

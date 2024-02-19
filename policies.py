@@ -2,18 +2,27 @@ import mdp
 import print_mdp
 import random
 
+policy_mdp = mdp.createMDP() # For later: implement function that gives states and actions from these two dictionaries back
 
-states, actions, mdp1_R, mdp1_P = mdp.createMDP() # For later: implement function that gives states and actions from these two dictionaries back
-print_mdp.print_rewards_details(mdp1_R)
-print_mdp.print_prob_details(mdp1_P)
 
 # Random policy
 # Based on selecting randomly action that should be executed
 # 1. Select randomly action
 # 2. Based on probabilities, transition to another state will be executed
 
-def random_policy(rewards, actions, actions_num):
-    return
+def random_policy(mdp_object, tran_num):
+
+    # Sets of which MDP is composed
+    A = mdp_object.get_actions()
+
+    
+    current_state = 's0' # Start from s0
+    for number in range(0, tran_num):
+        next_action = random.choice(A)
+        print(next_action)
+
+
+
 
 # Define random_policy
 
