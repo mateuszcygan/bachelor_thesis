@@ -59,24 +59,3 @@ def random_policy(mdp_object, tran_num):
         current_state = next_state
 
     return rewards_sum
-
-random_policy(policy_mdp, 5)
-
-# Expected value policy
-# Multiply rewards with probabilities
-# Choose the action with bigger expected value
-
-def expected_value_policy(mdp_object, tran_num):
-    rewards_sum = 0
-    start_state = 's0'
-
-    A = mdp_object.get_actions()
-    R = mdp_object.get_rewards()
-    P = mdp_object.get_probabilities()
-
-    for _ in range(0, tran_num):
-        for action in A:
-            return
-    return
-
-# Compare random with expected value policy
