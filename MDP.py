@@ -28,6 +28,23 @@ def createMDP():
     A = mdp_sets.generate_actions()
 
     R = mdp_sets.generate_rewards(S, A)
+
+    P = mdp_sets.generate_prob(S, A)
+
+    # print(R)
+    # print(P)
+
+    return MDP(S, A, R, P) 
+
+def createMDPupdated():
+    S = ['s0', 's1', 's2'] #state space
+    A = ['a0', 'a1'] #action space
+    # S = mdp_sets.generate_states()
+    # A = mdp_sets.generate_actions()
+
+    # R = mdp_sets.generate_rewards(S, A)
+    R = mdp_sets.generate_rewards_update(S, A)
+
     P = mdp_sets.generate_prob(S, A)
 
     # print(R)
