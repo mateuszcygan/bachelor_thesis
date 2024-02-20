@@ -32,6 +32,11 @@ def generate_actions():
 def generate_rewards(states, actions):
         return {state : {action : random.randint(-5, 5) for action in actions} for state in states}
 
+# Rewards updated
+# After executing each action certain reward is assigned to each following state
+# curr_state : { action : {foll_state1 : reward, foll_state2 : reward, ...}, action : {foll_state1 : reward, foll_state2 : reward, ...} }
+def generate_rewards_update(states, actions):
+    return {action : {state : {state : random.randint(-5, 5) for state in states} for state in states} for action in actions}
 
 
 # Probabilities that action a in state s at time t will lead to state s' at time t+1
