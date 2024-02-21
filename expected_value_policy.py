@@ -86,10 +86,9 @@ def expected_value_policy(mdp_object, tran_num):
 
 # Compare random with expected value policy
 mdp_updated = mdp.createMDPupdated();
-print(mdp_updated.get_actions())
-print(mdp_updated.get_states())
-print(mdp_updated.get_rewards())
-print(mdp_updated.get_probabilities())
+# print(mdp_updated.get_actions())
+# print(mdp_updated.get_states())
+# print(mdp_updated.get_rewards())
+# print(mdp_updated.get_probabilities())
 
-expected_value_policy(mdp_updated, 2)
-
+# expected_value_policy(mdp_updated, 2)
