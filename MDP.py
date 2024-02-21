@@ -20,6 +20,9 @@ class MDP:
     
     def get_probabilities(self):
         return self.probabilities
+    
+    def get_properties(self):
+        return self.states, self.actions, self.rewards, self.probabilities
 
 def createMDP():
     # S = ['s0', 's1', 's2'] #state space
@@ -37,10 +40,10 @@ def createMDP():
     return MDP(S, A, R, P) 
 
 def createMDPupdated():
-    S = ['s0', 's1', 's2'] #state space
-    A = ['a0', 'a1'] #action space
-    # S = mdp_sets.generate_states()
-    # A = mdp_sets.generate_actions()
+    # S = ['s0', 's1', 's2'] #state space
+    # A = ['a0', 'a1'] #action space
+    S = mdp_sets.generate_states()
+    A = mdp_sets.generate_actions()
 
     # R = mdp_sets.generate_rewards(S, A)
     R = mdp_sets.generate_rewards_update(S, A)
@@ -51,6 +54,7 @@ def createMDPupdated():
     # print(P)
 
     return MDP(S, A, R, P) 
+
 
     # Doesn't work properly
     # with open("generated_R.txt", "w") as file:
