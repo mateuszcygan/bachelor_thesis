@@ -1,6 +1,7 @@
 import random
 import pickle
 import mdp_sets
+import print_mdp as p
 
 class MDP:
     def __init__(self, states, actions, rewards, probabilities):
@@ -24,6 +25,10 @@ class MDP:
     def get_properties(self):
         return self.states, self.actions, self.rewards, self.probabilities
 
+def get_foll_states_rewards_values(R, executed_action, current_state):
+    return [R[executed_action][current_state][reward] for reward in R[executed_action][current_state]]
+
+
 def createMDP():
     # S = ['s0', 's1', 's2'] #state space
     # A = ['a0', 'a1'] #action space
@@ -40,20 +45,20 @@ def createMDP():
     return MDP(S, A, R, P) 
 
 def createMDPupdated():
-    # S = ['s0', 's1', 's2'] #state space
-    # A = ['a0', 'a1'] #action space
-    S = mdp_sets.generate_states()
-    A = mdp_sets.generate_actions()
+    S = ['s0', 's1', 's2'] #state space
+    A = ['a0', 'a1'] #action space
+    # S = mdp_sets.generate_states()
+    # A = mdp_sets.generate_actions()
 
-    # R = mdp_sets.generate_rewards(S, A)
     R = mdp_sets.generate_rewards_update(S, A)
-
     P = mdp_sets.generate_prob(S, A)
 
     # print(R)
     # print(P)
 
     return MDP(S, A, R, P) 
+
+createMDPupdated()
 
 
     # Doesn't work properly
