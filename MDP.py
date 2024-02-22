@@ -28,6 +28,9 @@ class MDP:
 def get_foll_states_rewards_values(R, executed_action, current_state):
     return [R[executed_action][current_state][reward] for reward in R[executed_action][current_state]]
 
+def get_foll_states_prob_values(P, current_state, executed_action):
+    return [P[current_state][executed_action][prob] for prob in P[current_state][executed_action]]
+
 
 def createMDP():
     # S = ['s0', 's1', 's2'] #state space
