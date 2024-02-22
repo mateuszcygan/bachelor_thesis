@@ -25,9 +25,11 @@ class MDP:
     def get_properties(self):
         return self.states, self.actions, self.rewards, self.probabilities
 
-def get_foll_states_rewards_values(R, executed_action, current_state):
+# Return an array with rewards for going over to following states through an executed action from a current state
+def get_foll_states_rewards_values(R, executed_action, current_state): 
     return [R[executed_action][current_state][reward] for reward in R[executed_action][current_state]]
 
+# Return an array with probabilities for going over to following states through an executed action from a current state
 def get_foll_states_prob_values(P, current_state, executed_action):
     return [P[current_state][executed_action][prob] for prob in P[current_state][executed_action]]
 
