@@ -3,6 +3,32 @@ import pickle
 import mdp_sets
 import print_mdp as p
 
+
+# R = {
+# {
+#  'a0':
+#   {'s0': {'s0': -2, 's1': 5, 's2': -2},
+#    's1': {'s0': -4, 's1': -1, 's2': -5}, 
+#    's2': {'s0': -3, 's1': 5, 's2': -5}
+#   }, 
+#  'a1':
+#   {'s0': {'s0': 0, 's1': -3, 's2': -3},
+#    's1': {'s0': -4, 's1': -5, 's2': 5}, 
+#    's2': {'s0': -4, 's1': 5, 's2': -1}
+#   }
+#  }
+# }
+
+# P = {
+#       's0' : {'a0' : { 's0' : 0.75, 's1' : 0.2, 's2' : 0.05},
+#               'a1' : { 's0' : 0.3, 's1' : 0.2, 's2' : 0.5}
+#               'a2' : { 's0' : 0.9, 's1' : 0.05, 's2' : 0.05}
+#       }
+#       's1' : {'a0' : { 's0' : 0.0, 's1' : 0.2, 's2' : 0.8},
+#              { 'a1' : { ... }}
+#       }
+#     }
+
 class MDP:
     def __init__(self, states, actions, rewards, probabilities):
         self.states = states
@@ -32,6 +58,11 @@ def get_foll_states_rewards_values(R, executed_action, current_state):
 # Return an array with probabilities for going over to following states through an executed action from a current state
 def get_foll_states_prob_values(P, current_state, executed_action):
     return [P[current_state][executed_action][prob] for prob in P[current_state][executed_action]]
+
+# Return an array with possibe following states from current state (based on Rewards set)
+# Create a set that to each state assign following states - use this in this function to return following states (upcoming change)
+def get_following_states(R, current_action, current_state):
+    return list(R[current_action][current_state].keys())
 
 
 def createMDP():
