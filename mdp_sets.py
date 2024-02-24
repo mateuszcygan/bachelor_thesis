@@ -115,7 +115,7 @@ def generate_prob(states, actions):
     return prob_dict
 
 # Go over to another state after selecting the action
-def state_transition(P, R, current_state, chosen_action):
+def state_transition(P, current_state, chosen_action):
     prob_current_action = list(P[current_state][chosen_action].values())# Get probabilities for going over to another state from the current action
     following_states = list(P[current_state][chosen_action].keys())
     
@@ -124,6 +124,7 @@ def state_transition(P, R, current_state, chosen_action):
 
     # Go over to another state based on probability of certain action
     next_state = random.choices(following_states, weights = prob_current_action)[0]
+    print("Next state:", next_state)
 
     # print("Based on probability chosen next state:", next_state, '\n')
 
