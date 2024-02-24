@@ -35,6 +35,20 @@ def generate_rewards(states, actions):
 # Rewards updated
 # After executing each action certain reward is assigned to each following state
 # curr_state : { action : {foll_state1 : reward, foll_state2 : reward, ...}, action : {foll_state1 : reward, foll_state2 : reward, ...} }
+# R = {
+# {
+#  'a0':
+#   {'s0': {'s0': -2, 's1': 5, 's2': -2},
+#    's1': {'s0': -4, 's1': -1, 's2': -5}, 
+#    's2': {'s0': -3, 's1': 5, 's2': -5}
+#   }, 
+#  'a1':
+#   {'s0': {'s0': 0, 's1': -3, 's2': -3},
+#    's1': {'s0': -4, 's1': -5, 's2': 5}, 
+#    's2': {'s0': -4, 's1': 5, 's2': -1}
+#   }
+#  }
+# }
 def generate_rewards_update(states, actions):
     return {action : {state : {state : random.randint(-5, 5) for state in states} for state in states} for action in actions}
 
@@ -99,3 +113,18 @@ def generate_prob(states, actions):
             action_number += 1
     # print(prob_dict)
     return prob_dict
+
+# Go over to another state after selecting the action
+def state_transition(P, R, current_state, chosen_action):
+    prob_current_action = list(P[current_state][chosen_action].values())# Get probabilities for going over to another state from the current action
+    following_states = list(P[current_state][chosen_action].keys())
+    
+    print("Probabilities of going to another state after", chosen_action, ":", prob_current_action)
+    print("Possible following states:", following_states)
+
+    # Go over to another state based on probability of certain action
+    next_state = random.choices(following_states, weights = prob_current_action)[0]
+
+    # print("Based on probability chosen next state:", next_state, '\n')
+
+    return next_state
