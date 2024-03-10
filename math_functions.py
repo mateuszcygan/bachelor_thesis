@@ -34,7 +34,7 @@ test_arr = normalize(test)
 print(test_arr)
 print(sum(test_arr))
 
-# Normalize probabilities for following states
+# Normalizing probabilities for following states of a certain MDP
 def normalize_mdp_probabilities(mdp):
 
     S = mdp.states
