@@ -1,7 +1,4 @@
- 
-import mdp
 import pickle 
-import print_mdp
 
 # Solution from: https://stackoverflow.com/questions/4529815/saving-an-object-data-persistence
 
