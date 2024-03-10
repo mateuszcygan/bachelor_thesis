@@ -16,8 +16,8 @@ def unreachable_states(mdp_object):
     for s in states:
         for a in actions:
             prob_values = list(P[s][a].values())
+            unreachable = 0
             for prob_value in prob_values:
-                unreachable = 0
                 if prob_value == 0.0:
                     unreachable += 1
             print("Unreachable states:", unreachable)
