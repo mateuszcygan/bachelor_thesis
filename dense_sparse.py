@@ -41,9 +41,12 @@ def random_following_state(mdp):
 
     for current_state in S:
         for action in A:
-            print(list(P[current_state][action].values()))
+            transition_prob = list(P[current_state][action].values())
 
-
+            # If all probabilities are zero (no following state), choose randomly one action and assign probability 1.0 to it
+            if sum(transition_prob) == 0:
+                random_state = random.choice(S)
+                P[current_state][action][random_state] = 1.0
 
 # Thinning the reachable states in the MDP by using state_sparsity_rate - percentage of states that should be unreached
 def sparse_mdp_states(mdp, state_sparsity_rate):
