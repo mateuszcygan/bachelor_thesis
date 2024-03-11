@@ -31,7 +31,7 @@ def get_foll_states_rewards_values(R, current_state, executed_action):
 
 # Return an array with probabilities for going over to following states through an executed action from a current state
 def get_foll_states_prob_values(P, current_state, executed_action):
-    return [P[current_state][executed_action][prob] for prob in P[current_state][executed_action]]
+    return list(P[current_state][executed_action].values())
 
 # Return an array with possibe following states from certain state (based on Rewards set)
 # Create a set that to each state assign following states - use this in this function to return following states /upcoming change
