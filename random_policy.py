@@ -1,9 +1,5 @@
 import mdp
-import print_mdp as p
 import random
-
-policy_mdp = mdp.createMDP()
-
 
 # Random policy
 # Based on selecting randomly action that should be executed
@@ -23,41 +19,31 @@ def random_policy(mdp_object, tran_num):
     """
 
     # Sets of which MDP is composed (replace with new function that is already implemented)
-    A = mdp_object.get_actions()
-    S = mdp_object.get_states()
-    R = mdp_object.get_rewards()
-    P = mdp_object.get_probabilities()
+    S, A, R, P = mdp_object.get_properties()
 
-    # Prints of MDP components (Delete)
-    print(A, '\n')
-    print(S, '\n')
-    # print(R, '\n')
-    # print(P, '\n')
-    p.print_rewards_details(R)
-    p.print_prob_details(P)
-
-    
     current_state = 's0' # Start from s0
     rewards_sum = 0
+
     for _ in range(0, tran_num): # Use _ as a placeholder for the loop variable
-        print("Current state:", current_state)
 
-        current_action = random.choice(A) # Randomly choose action from A
-        print("Randomly choosed action: ", current_action)
+        print("curr_state:", current_state)
 
-        print("Reward of taking current action:", R[current_state][current_action])
-        rewards_sum += R[current_state][current_action] # Sum the collected rewards
-        print("Collected rewards so far:", rewards_sum)
+        executed_action = random.choice(A) # Randomly choose action from A
+        print("random_action:", executed_action)
 
-        prob_current_action = [P[current_state][current_action][state] for state in P]# Get probabilities for going over to another state from the current action
-        print("Probabilities of going to another state after", current_action, ":", prob_current_action)
+        states_weights = mdp.get_foll_states_prob_values(P, current_state, executed_action) # Extract probabilities for following states
+        print("tran_prob", current_state, ":", states_weights)
 
-        # Go over to another state based on probability of certain action
-        next_state = random.choices(S, weights = prob_current_action)[0] # [0] - return type is an array
-        print("Based on probability chosen next state:", next_state, '\n')
+        # Go over to another state based on transition probabilities
+        next_state = random.choices(S, weights = states_weights)[0]
+        print("next_state (prob based):", next_state, '\n')
+
+        reward = R[current_state][executed_action][next_state]
+        rewards_sum += reward
+
+        print("reward:", reward)
+        print("collected_rewards:", rewards_sum)
 
         current_state = next_state
 
     return rewards_sum
-
-random_policy(policy_mdp, 5)
