@@ -1,3 +1,4 @@
+# Returns an index of a number that is the biggest in the given array
 def find_max_index(lst):
     if not lst:
         return None  # Return None for an empty list
@@ -9,7 +10,3 @@ def find_max_index(lst):
             max_index = i  # Update the index if a larger element is found
     
     return max_index
-
-# Example usage:
-my_list = [5, 8, 3, 9, 6]
-print("Index of the biggest element:", find_max_index(my_list))
