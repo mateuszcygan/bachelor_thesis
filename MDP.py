@@ -3,32 +3,6 @@ import pickle
 import mdp_sets
 import print_mdp as p
 
-
-# R = {
-# {
-#  'a0':
-#   {'s0': {'s0': -2, 's1': 5, 's2': -2},
-#    's1': {'s0': -4, 's1': -1, 's2': -5}, 
-#    's2': {'s0': -3, 's1': 5, 's2': -5}
-#   }, 
-#  'a1':
-#   {'s0': {'s0': 0, 's1': -3, 's2': -3},
-#    's1': {'s0': -4, 's1': -5, 's2': 5}, 
-#    's2': {'s0': -4, 's1': 5, 's2': -1}
-#   }
-#  }
-# }
-
-# P = {
-#       's0' : {'a0' : { 's0' : 0.75, 's1' : 0.2, 's2' : 0.05},
-#               'a1' : { 's0' : 0.3, 's1' : 0.2, 's2' : 0.5}
-#               'a2' : { 's0' : 0.9, 's1' : 0.05, 's2' : 0.05}
-#       }
-#       's1' : {'a0' : { 's0' : 0.0, 's1' : 0.2, 's2' : 0.8},
-#              { 'a1' : { ... }}
-#       }
-#     }
-
 class MDP:
     def __init__(self, states, actions, rewards, probabilities):
         self.states = states
@@ -51,11 +25,9 @@ class MDP:
     def get_properties(self):
         return self.states, self.actions, self.rewards, self.probabilities
 
-# Rename parameters so that "current_state" is not included (more general) /upcoming change
-
 # Return an array with rewards for going over to following states through an executed action from a current state
-def get_foll_states_rewards_values(R, executed_action, current_state): 
-    return [R[executed_action][current_state][reward] for reward in R[executed_action][current_state]]
+def get_foll_states_rewards_values(R, current_state, executed_action): 
+    return list(R[current_state][executed_action].values())
 
 # Return an array with probabilities for going over to following states through an executed action from a current state
 def get_foll_states_prob_values(P, current_state, executed_action):
@@ -70,8 +42,6 @@ def get_following_states(R, current_action, current_state):
 def get_possible_actions(P, state):
     return list(P[state].keys())
 
-
-
 def createMDP():
     # S = ['s0', 's1', 's2'] #state space
     # A = ['a0', 'a1'] #action space
@@ -79,23 +49,6 @@ def createMDP():
     A = mdp_sets.generate_actions()
 
     R = mdp_sets.generate_rewards(S, A)
-
-    P = mdp_sets.generate_prob(S, A)
-
-    # print(R)
-    # print(P)
-
-    return MDP(S, A, R, P) 
-
-
-
-def createMDPupdated():
-    # S = ['s0', 's1', 's2'] #state space
-    # A = ['a0', 'a1'] #action space
-    S = mdp_sets.generate_states()
-    A = mdp_sets.generate_actions()
-
-    R = mdp_sets.generate_rewards_update(S, A)
     P = mdp_sets.generate_prob(S, A)
 
     # print(R)
