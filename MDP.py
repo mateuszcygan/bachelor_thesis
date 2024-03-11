@@ -46,9 +46,6 @@ def createMDP():
     R = mdp_sets.generate_rewards(S, A)
     P = mdp_sets.generate_prob(S, A)
 
-    # print(R)
-    # print(P)
-
     return MDP(S, A, R, P)
 
 
