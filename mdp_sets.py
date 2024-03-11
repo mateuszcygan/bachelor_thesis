@@ -9,9 +9,6 @@ def generate_states():
     # print(S)
     return S
 
-
-
-
 def generate_actions():
     A = []
     num_actions = random.randint(2,5)
@@ -20,8 +17,6 @@ def generate_actions():
         A.append(action)
     # print(A)
     return A
-
-
 
 # Rewards received after transitioning from state s to s' due to action a
 # state : { action : reward }
@@ -88,7 +83,6 @@ def gen_values_for_prob(states, actions):
     # print(prob_values)
     return prob_values
     
-
 # Probabilities that action a in state s at time t will lead to state s' at time t+1
 # state : { action : {following state : probability}}
 # P = {
@@ -114,7 +108,7 @@ def generate_prob(states, actions):
     # print(prob_dict)
     return prob_dict
 
-# Go over to another state after selecting the action
+# Going over to another state after selecting the action
 def state_transition(P, current_state, chosen_action):
     prob_current_action = list(P[current_state][chosen_action].values())# Get probabilities for going over to another state from the current action
     following_states = list(P[current_state][chosen_action].keys())

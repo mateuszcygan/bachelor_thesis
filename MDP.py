@@ -51,6 +51,8 @@ class MDP:
     def get_properties(self):
         return self.states, self.actions, self.rewards, self.probabilities
 
+# Rename parameters so that "current_state" is not included (more general) /upcoming change
+
 # Return an array with rewards for going over to following states through an executed action from a current state
 def get_foll_states_rewards_values(R, executed_action, current_state): 
     return [R[executed_action][current_state][reward] for reward in R[executed_action][current_state]]
@@ -60,14 +62,13 @@ def get_foll_states_prob_values(P, current_state, executed_action):
     return [P[current_state][executed_action][prob] for prob in P[current_state][executed_action]]
 
 # Return an array with possibe following states from certain state (based on Rewards set)
-# Create a set that to each state assign following states - use this in this function to return following states (upcoming change)
+# Create a set that to each state assign following states - use this in this function to return following states /upcoming change
 def get_following_states(R, current_action, current_state):
     return list(R[current_action][current_state].keys())
 
 # Return an array with possible actions that can be executed from a certain state
 def get_possible_actions(P, state):
     return list(P[state].keys())
-
 
 
 
@@ -86,11 +87,13 @@ def createMDP():
 
     return MDP(S, A, R, P) 
 
+
+
 def createMDPupdated():
-    S = ['s0', 's1', 's2'] #state space
-    A = ['a0', 'a1'] #action space
-    # S = mdp_sets.generate_states()
-    # A = mdp_sets.generate_actions()
+    # S = ['s0', 's1', 's2'] #state space
+    # A = ['a0', 'a1'] #action space
+    S = mdp_sets.generate_states()
+    A = mdp_sets.generate_actions()
 
     R = mdp_sets.generate_rewards_update(S, A)
     P = mdp_sets.generate_prob(S, A)
@@ -98,12 +101,9 @@ def createMDPupdated():
     # print(R)
     # print(P)
 
-    return MDP(S, A, R, P) 
-
-createMDPupdated()
+    return MDP(S, A, R, P)
 
 
-    # Doesn't work properly
-    # with open("generated_R.txt", "w") as file:
-    #     pickle.dump(R, file)
+
+
 

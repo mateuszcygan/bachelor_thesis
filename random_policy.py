@@ -22,7 +22,7 @@ def random_policy(mdp_object, tran_num):
     - rewards_sum: The sum of rewards collected during transitions.
     """
 
-    # Sets of which MDP is composed
+    # Sets of which MDP is composed (replace with new function that is already implemented)
     A = mdp_object.get_actions()
     S = mdp_object.get_states()
     R = mdp_object.get_rewards()
@@ -59,3 +59,5 @@ def random_policy(mdp_object, tran_num):
         current_state = next_state
 
     return rewards_sum
+
+random_policy(policy_mdp, 5)

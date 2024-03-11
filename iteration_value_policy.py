@@ -2,6 +2,7 @@ import mdp
 import print_mdp as p
 import auxiliary_functions as aux
 import mdp_sets
+import mdp_files_generator as mfg
 # import numpy as np
 
 # R = {
@@ -28,8 +29,6 @@ import mdp_sets
 #              { 'a1' : { ... }}
 #       }
 #     }
-
-mdp_updated = mdp.createMDPupdated()
 
 def value_iteration(mdp_object):
 
@@ -120,6 +119,8 @@ def value_iteration(mdp_object):
     
         current_state = next_state # Update the current state
         i+=1
-        
+
+mdp_updated = mfg.read_saved_mdp("mdp_object.pkl") 
 x = value_iteration(mdp_updated)
 print("Value iteration array: ", x)
+
