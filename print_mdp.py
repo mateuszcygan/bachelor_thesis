@@ -4,3 +4,8 @@ def print_mdp_details(prob_dict):
         for action, prob in action_prob_dict.items():
             print(action, ":", prob)
         print('\n')
+
+# Printing formatted version of result from value iteration
+def print_value_function(V):
+    for state, value in V.items():
+        print(state, ":", value)
