@@ -33,7 +33,6 @@ def unreachable_states(mdp_object):
 
 # For states without following actions (all probabilities are set to zero) randomly choose one following state
 def random_following_state(mdp):
-    print("\nrandom following state function")
 
     S = mdp.states
     A = mdp.actions
@@ -77,6 +76,34 @@ def sparse_mdp_states(mdp, state_sparsity_rate):
 
     math_fct.normalize_mdp_probabilities(mdp)
     random_following_state(mdp)
+
+def sparse_mdp_rewards(mdp, reward_sparsity_rate):
+
+    S = mdp.states
+    A = mdp.actions
+    R = mdp.rewards
+
+    old_probability_weight = 1 - reward_sparsity_rate
+    sparsity_weights = [reward_sparsity_rate, old_probability_weight] # Sparse weights for 0.0 reward and assigned reward
+
+    for current_state in S:
+        for action in A:
+            for following_state in S:
+
+                # possible_reward_values = [0]
+                possible_reward_values = [0.0]  # Array containing 0.0 reward and assigned reward (used for decision-making) 
+                reward_value = R[current_state][action][following_state]
+
+                # If any of the following states is already unreachable, don't change it
+                if reward_value == 0:
+                    continue
+
+                possible_reward_values.append(reward_value)
+
+                # Choose between reward 0.0 and assigned reward
+                new_reward_value = random.choices(possible_reward_values, weights = sparsity_weights)[0]
+                R[current_state][action][following_state] = new_reward_value
+
 
 
 
