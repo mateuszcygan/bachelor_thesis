@@ -15,6 +15,8 @@ def value_iteration(mdp_object):
     i = 0 # Number of iterations
 
     while True:
+        i += 1
+        print("Iteration number", i, "\n")
 
         for current_state in S:
 
@@ -39,9 +41,6 @@ def value_iteration(mdp_object):
             policy[current_state] = biggest_value_action # Set the action with the biggest value as the policy action from current state
 
             V_new[current_state] = max_value # Set maximum of calculated values as a new value for current_state
-            
-            i += 1
-            print("Iteration number", i, "\n")
 
             # Termination condition
             print("Old value function:")
@@ -52,5 +51,5 @@ def value_iteration(mdp_object):
             print("\n")
             if (all( abs(V[s] - V_new[s]) < 0.0001 for s in S)):
                 print("Number of iterations: ", i)
-                return V_new, policy
+                return V_new, policy, i
             V = V_new.copy()
