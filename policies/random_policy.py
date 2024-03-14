@@ -8,7 +8,7 @@ import random
 
 def random_policy(mdp_object, tran_num):
     """
-    Implement a random policy for a Markov Decision Process (MDP).
+    Implementation of a random policy for a Markov Decision Process
 
     Args:
     - mdp_object: An object representing the MDP.
