@@ -122,6 +122,50 @@ def sparse_mdp_rewards(mdp, reward_sparsity_rate):
                 new_reward_value = random.choices(possible_reward_values, weights = sparsity_weights)[0]
                 R[current_state][action][following_state] = new_reward_value
 
+def reduce_actions_number(mdp, min_num=1, max_num=None):
+
+    """
+    Reduce the number of possible actions for each state
+
+    Args:
+    - mdp: An object representing the MDP.
+    - min_num: The minimum number of possible actions from a state. Defaults to 1.
+    - max_num: The maximum number of possible actions from a state. If not specified, defaults to the total number of actions available in the MDP.
+
+    Returns:
+
+    Test: executable actions in rewards and probabilities for the same states are the same
+    """
+
+    # If max_num not defined, assign the value of possible states
+    if max_num is None:
+        max_num = len(mdp.actions)
+    
+    A = mdp.actions
+    S = mdp.states
+    R = mdp.rewards
+    P = mdp.probabilities
+    
+    for state in S:
+
+        actions_num = random.randint(min_num, max_num) # Randomly choose a number from a given interval (number of executable actions from certain state)
+        random_actions = random.choices(A, k=actions_num) # Randomly choose actions that should be executable
+        print("Randomly chosen executable actions:", random_actions)
+
+        actions_to_delete = set(A) - set(random_actions) # Determine actions that should be deleted for certain state
+        print("Actions to delete:", actions_to_delete)
+
+        for action_to_delete in actions_to_delete:
+            del R[state][action_to_delete]
+            del P[state][action_to_delete]
+
+
+
+
+
+
+
+
 
 
 
