@@ -1,4 +1,4 @@
-import print_mdp 
+import mdp_obj.print_mdp as print_mdp 
 
 def value_iteration(mdp_object):
 

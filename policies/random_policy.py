@@ -1,4 +1,4 @@
-import mdp
+import mdp_obj.mdp as mdp
 import random
 
 # Random policy

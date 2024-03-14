@@ -1,8 +1,4 @@
-import mdp
 import random
-import mdp_files_generator as mfg
-import print_mdp
-import math_functions as math_fct
 
 # Function that outputs the number of states with a probability of 0.0 (indicating unreachable states)
 def unreachable_states(mdp_object):
@@ -22,14 +18,14 @@ def unreachable_states(mdp_object):
             for prob_value in prob_values:
                 if prob_value == 0.0:
                     unreachable += 1
-            print("Unreachable states:", unreachable)
+            # print("Unreachable states:", unreachable)
             unreachable_overall += unreachable
 
-    print("Number of transitions to other states:", poss_states_transitions)
-    print("Unreachable states in the whole MDP:", unreachable_overall)
+    print("tran_to_other_states(incl prob=0):", poss_states_transitions)
+    print("unreach_states(prob=0):", unreachable_overall)
     
     unreachable_percentage = unreachable_overall/poss_states_transitions
-    print("Percentage of unreachable states:", unreachable_percentage)
+    print("percent_of_unreach_states:", unreachable_percentage)
 
 # For states without following actions (all probabilities are set to zero) randomly choose one following state
 def random_following_state(mdp):
@@ -46,6 +42,28 @@ def random_following_state(mdp):
             if sum(transition_prob) == 0:
                 random_state = random.choice(S)
                 P[current_state][action][random_state] = 1.0
+
+# Normalizing probabilities for following states of a certain MDP
+def normalize_mdp_probabilities(mdp):
+
+    S = mdp.states
+    A = mdp.actions
+    P = mdp.probabilities
+
+    for current_state in S:
+        for action in A:
+
+            # Calculate the total value of probabilities for certain action
+            action_prob = list(P[current_state][action].values())
+            total = sum(action_prob)
+
+            for foll_state in S:
+
+                # Normalize the probability of following states
+                try:
+                    P[current_state][action][foll_state] = P[current_state][action][foll_state]/total
+                except ZeroDivisionError:
+                    P[current_state][action][foll_state] = 0
 
 # Thinning the reachable states in the MDP by using state_sparsity_rate - percentage of states that should be unreached
 def sparse_mdp_states(mdp, state_sparsity_rate):
@@ -74,7 +92,7 @@ def sparse_mdp_states(mdp, state_sparsity_rate):
                 new_prob_value = random.choices(possible_prob_values, weights = sparsity_weights)[0]
                 P[current_state][action][following_state] = new_prob_value
 
-    math_fct.normalize_mdp_probabilities(mdp)
+    normalize_mdp_probabilities(mdp)
     random_following_state(mdp)
 
 def sparse_mdp_rewards(mdp, reward_sparsity_rate):

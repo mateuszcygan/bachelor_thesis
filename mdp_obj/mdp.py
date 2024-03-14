@@ -1,4 +1,4 @@
-import mdp_sets
+import mdp_obj.mdp_sets as mdp_sets
 
 class MDP:
     def __init__(self, states, actions, rewards, probabilities):

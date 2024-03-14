@@ -1,11 +1,12 @@
-import print_mdp 
+import mdp_obj.print_mdp as print_mdp 
 
 def value_iteration(mdp_object, finite_horizon):
 
     # Extract MDP properties
     S, A, R, P = mdp_object.get_properties()
 
-    dicount_factor = 0.9
+    dicount_factor = 0.9 # For comparisson
+    # discount_factor = 1
 
     # Initialize the value for each state to 0
     V = {s : 0 for s in S}
