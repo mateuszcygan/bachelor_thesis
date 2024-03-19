@@ -1,5 +1,6 @@
 import random
 from mdp_obj import mdp
+from mdp_obj import print_mdp
 
 
 def learn_probabilities(mdp_object):
@@ -27,19 +28,19 @@ def learn_probabilities(mdp_object):
     #     print("\n")
         
     # Store how many times a transition to a certain state took place
-    states_hits = {s : {s : 0 for s in S} for s in S}
+    states_hits = {s : { a : {s : 0 for s in S} for a in A } for s in S}
 
     prob_denominator = len(S) # Denominator for calculating probabilities
 
     # Initially all probabilities for transitioning to other state are equal
     initial_prob = 1/prob_denominator
-    approximated_prob = {s : {s : initial_prob for s in S} for s in S}
+    approximated_prob = {s : {a : {s : initial_prob for s in S} for a in A} for s in S}
 
 
 
     current_state = 's0' # Start at state 's0'
 
-    for _ in range(200):
+    for _ in range(100000):
         # Retreive which action should be executed as a next one
         action_to_execute_index = state_actions[current_state]["iteration_num"] % state_actions[current_state]["actions_num"]
         executed_action = state_actions[current_state]["actions"][action_to_execute_index]
@@ -51,13 +52,19 @@ def learn_probabilities(mdp_object):
         next_state = random.choices(S, weights = states_prob)[0]
 
         # Mark state to which transition took place
-        states_hits[current_state][next_state]+=1
+        states_hits[current_state][executed_action][next_state]+=1
     
         # Calculate new approximation of probabilities
+        hits_list = list(states_hits[current_state][executed_action].values())  
+        hits_num = sum(hits_list) # Sum how many states changes took place for a certain state after executing a certain action
+        
         for state in S:
-            approximated_prob[current_state][state] = (1 + states_hits[current_state][state]) / (prob_denominator + state_actions[current_state]["iteration_num"])
+            approximated_prob[current_state][executed_action][state] = (1 + states_hits[current_state][executed_action][state]) / (prob_denominator + hits_num)
     
         current_state = next_state
+
+    print_mdp.print_mdp_details(approximated_prob)
+
 
     
     
