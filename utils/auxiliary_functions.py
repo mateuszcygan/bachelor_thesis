@@ -10,3 +10,15 @@ def find_max_index(lst):
             max_index = i  # Update the index if a larger element is found
     
     return max_index
+
+def flatten_list(original_list):
+    """
+    Flatten a nested list using list comprehension.
+
+    Args:
+        original_list (list): The nested list to flatten.
+
+    Returns:
+        list: The flattened list.
+    """
+    return [item for sublist in original_list for item in sublist]
