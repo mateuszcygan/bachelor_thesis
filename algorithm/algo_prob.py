@@ -1,7 +1,6 @@
 import random
 import copy
 from mdp_obj import mdp
-from mdp_obj import print_mdp
 
 def learn_probabilities_finite(mdp_object, iteration_num):
 
