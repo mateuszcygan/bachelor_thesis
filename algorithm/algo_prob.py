@@ -1,4 +1,5 @@
 import random
+import copy
 from mdp_obj import mdp
 from mdp_obj import print_mdp
 
@@ -34,9 +35,13 @@ def learn_probabilities(mdp_object):
 
     # Initially all probabilities for transitioning to other state are equal
     initial_prob = 1/prob_denominator
-    approximated_prob = {s : {a : {s : initial_prob for s in S} for a in A} for s in S}
+    approximated_prob = copy.deepcopy(P)
 
-
+    # Set all transition probabilities to initial probability
+    for state in approximated_prob:
+        for action in approximated_prob[state]:
+            for next_state in approximated_prob[state][action]:
+                approximated_prob[state][action][next_state] = initial_prob
 
     current_state = 's0' # Start at state 's0'
 
@@ -64,6 +69,7 @@ def learn_probabilities(mdp_object):
         current_state = next_state
 
     print_mdp.print_mdp_details(approximated_prob)
+    return approximated_prob
 
 
     
