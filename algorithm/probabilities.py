@@ -1,8 +1,8 @@
 import random
 import copy
 
-# from context import mdp
-from algorithm.context import mdp
+from context import mdp
+# from algorithm.context import mdp
 
 def learn_probabilities_finite(mdp_object, iteration_num):
 
@@ -70,17 +70,17 @@ def learn_probabilities_finite(mdp_object, iteration_num):
     # Manual tests
         
     ## 1: the number of all iterations, sum of iterations for each of states and sum of states' hits should be equal
-    states_hits_sum = 0
-    for state, action_foll_state in states_hits.items():
-        for action, foll_states in action_foll_state.items():
-            for foll_state, hit in foll_states.items():
-                states_hits_sum += hit
+    # states_hits_sum = 0
+    # for state, action_foll_state in states_hits.items():
+    #     for action, foll_states in action_foll_state.items():
+    #         for foll_state, hit in foll_states.items():
+    #             states_hits_sum += hit
 
-    states_iteration_sum = 0
-    for state in S:
-        states_iteration_sum += state_actions[state]["iteration_num"]
+    # states_iteration_sum = 0
+    # for state in S:
+    #     states_iteration_sum += state_actions[state]["iteration_num"]
 
-    print("Equality test: iteration_num === states_hits == states_iteration:", i == states_hits_sum == states_iteration_sum)
+    # print("Equality test: iteration_num === states_hits == states_iteration:", i == states_hits_sum == states_iteration_sum)
 
     return approximated_prob
 
@@ -167,11 +167,25 @@ def learn_probabilities_convergence(mdp_object, threshold):
                     convergence = convergence and (abs(approximated_prob[init_state][exe_action][following_state] - approximated_prob_new[init_state][exe_action][following_state]) < threshold)
             
         if convergence:
-            print("Number of iterations: ", i)
+
+            # Manual tests
+
+            ## 1: the number of all iterations, sum of iterations for each of states and sum of states' hits should be equal
+            # print("Number of iterations: ", i)
+            # states_hits_sum = 0
+            # for state, action_foll_state in states_hits.items():
+            #     for action, foll_states in action_foll_state.items():
+            #         for foll_state, hit in foll_states.items():
+            #             states_hits_sum += hit
+
+            # states_iteration_sum = 0
+            # for state in S:
+            #     states_iteration_sum += state_actions[state]["iteration_num"]
+
+            # print("Equality test: iteration_num === states_hits == states_iteration:", i == states_hits_sum == states_iteration_sum)
             return approximated_prob_new
         
         approximated_prob = copy.deepcopy(approximated_prob_new)
         current_state = next_state
-    
     
 
