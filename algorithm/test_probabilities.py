@@ -2,7 +2,7 @@ import unittest
 import probabilities
 from context import mdp 
 
-class TestLearnProbabilitiesFinite(unittest.TestCase):
+class TestLearnProbabilities(unittest.TestCase):
 
     # Test if sum of approximated probabilities for each state is equals (close to) 1.0
     def test_prob_sum(self):
