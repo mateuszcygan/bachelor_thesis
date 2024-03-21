@@ -1,13 +1,15 @@
 import random
 import copy
-from mdp_obj import mdp
+
+# from context import mdp
+from algorithm.context import mdp
 
 def learn_probabilities_finite(mdp_object, iteration_num):
 
     # The structure of MDP is known
     A = mdp_object.actions
     S = mdp_object.states
-    P = mdp_object.probabilities # Probabilities needed for changing between transitions
+    P = mdp_object.probabilities # Probabilities needed for transitioning from one state to another
 
     # Needed for choosing actions that should be executed
     state_actions = {s : 
@@ -30,10 +32,10 @@ def learn_probabilities_finite(mdp_object, iteration_num):
     approximated_prob = copy.deepcopy(P)
 
     # Set all transition probabilities to initial probability
-    for state in approximated_prob:
-        for action in approximated_prob[state]:
-            for next_state in approximated_prob[state][action]:
-                approximated_prob[state][action][next_state] = initial_prob
+    for current_state in approximated_prob:
+        for action in approximated_prob[current_state]:
+            for following_state in approximated_prob[current_state][action]:
+                approximated_prob[current_state][action][following_state] = initial_prob
 
     current_state = 's0' # Start at state 's0'
     i = 0 # Number of iterations
@@ -63,7 +65,25 @@ def learn_probabilities_finite(mdp_object, iteration_num):
     
         current_state = next_state
 
+
+
+    # Manual tests
+        
+    ## 1: the number of all iterations, sum of iterations for each of states and sum of states' hits should be equal
+    states_hits_sum = 0
+    for state, action_foll_state in states_hits.items():
+        for action, foll_states in action_foll_state.items():
+            for foll_state, hit in foll_states.items():
+                states_hits_sum += hit
+
+    states_iteration_sum = 0
+    for state in S:
+        states_iteration_sum += state_actions[state]["iteration_num"]
+
+    print("Equality test: iteration_num === states_hits == states_iteration:", i == states_hits_sum == states_iteration_sum)
+
     return approximated_prob
+
 
 def learn_probabilities_convergence(mdp_object, threshold):
 
