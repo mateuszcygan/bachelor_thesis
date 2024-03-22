@@ -159,6 +159,7 @@ def reduce_actions_number(mdp, min_num=1, max_num=None):
             del R[state][action_to_delete]
             del P[state][action_to_delete]
 
+    return mdp
 
 
 
